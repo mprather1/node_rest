@@ -26,6 +26,15 @@ app.get("/addUser", function(req, res){
   });
 });
 
+app.get("/users/:id", function(req, res) {
+    fs.readFile(__dirname + "/" + "users.json", "utf8", function(err, data) {
+        data = JSON.parse(data);
+        var user = data["user" + req.params.id];
+        console.log(user);
+        res.end(JSON.stringify(user));
+    });
+});
+
 var server = app.listen(8000, function(){
   var host = server.address().address;
   var port = server.address().port;
